@@ -29,13 +29,17 @@ app.use(
 	}),
 );
 
-// Static assets (no auth, 1-day browser cache)
+// Static assets — immutable cache for vendored files, short cache for sw.js
 app.use(
 	"/public/*",
 	serveStatic({
 		root: "./src",
-		onFound: (_path, c) => {
-			c.header("Cache-Control", "public, max-age=86400");
+		onFound: (path, c) => {
+			if (path.endsWith("/sw.js")) {
+				c.header("Cache-Control", "public, max-age=0, must-revalidate");
+			} else {
+				c.header("Cache-Control", "public, max-age=31536000, immutable");
+			}
 		},
 	}),
 );

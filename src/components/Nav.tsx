@@ -18,7 +18,7 @@ const Nav: FC<NavProps> = ({ current, isAdmin }) => {
 
 	return (
 		<nav class="site-nav" aria-label="Hauptnavigation">
-			<ul>
+			<ul preload>
 				{links.map((link) => (
 					<li key={link.href}>
 						<a

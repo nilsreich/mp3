@@ -36,8 +36,10 @@ const Layout: FC<LayoutProps> = ({
 					<Nav current={currentPath} isAdmin={isAdmin} />
 				)}
 				<main class="container">{children}</main>
-				<script src="/public/htmx.min.js" />
-				<script src="/public/_hyperscript.min.js" />
+				<script src="/public/htmx.min.js" defer />
+				<script src="/public/hx-preload.js" defer />
+				<script src="/public/hx-download.js" defer />
+				<script src="/public/_hyperscript.min.js" defer />
 				<script
 					dangerouslySetInnerHTML={{
 						__html: `if('serviceWorker' in navigator) navigator.serviceWorker.register('/public/sw.js');`,
