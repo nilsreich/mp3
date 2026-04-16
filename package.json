@@ -1,0 +1,15 @@
+{
+	"name": "mp3",
+	"scripts": {
+		"dev": "bun run --hot src/index.ts",
+		"check": "bunx --bun @biomejs/biome check --write",
+		"build": "bun build ./src/index.ts --compile --minify --outfile mp3"
+	},
+	"dependencies": {
+		"hono": "^4.12.14"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.12",
+		"@types/bun": "latest"
+	}
+}

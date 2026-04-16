@@ -1,0 +1,16 @@
+{
+	"name": "mp3",
+	"short_name": "mp3",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"theme_color": "#007AFF",
+	"icons": [
+		{
+			"src": "/public/icon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		}
+	]
+}
