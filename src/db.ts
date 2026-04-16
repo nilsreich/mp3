@@ -121,7 +121,7 @@ const existing = db
 	.query("SELECT id FROM users WHERE is_admin = 1 LIMIT 1")
 	.get();
 if (!existing) {
-	const hash = await Bun.password.hash("changeme");
+	const hash = Bun.password.hashSync("changeme");
 	stmts.createAdminUser.run("admin", hash);
 }
 
