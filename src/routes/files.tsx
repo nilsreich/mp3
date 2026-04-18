@@ -84,9 +84,13 @@ const FilesPage = ({
 								<td>{formatBytes(f.size)}</td>
 								<td>{formatDate(f.uploaded_at)}</td>
 								<td>
-<button type="button" hx-get={`/files/${f.id}/download`} hx-swap="download">
-											Herunterladen
-										</button>
+									<button
+										type="button"
+										hx-get={`/files/${f.id}/download`}
+										hx-swap="download"
+									>
+										Herunterladen
+									</button>
 
 									<form
 										method="post"

@@ -40,6 +40,16 @@ db.run(`
   )
 `);
 
+db.run(`
+  CREATE TABLE IF NOT EXISTS todos (
+    id          TEXT    PRIMARY KEY,
+    user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    task   		TEXT    NOT NULL,
+    done        INTEGER NOT NULL DEFAULT 0,
+	created_at  INTEGER NOT NULL DEFAULT (unixepoch())
+  )
+`);
+
 // All SQL in one place — import stmts everywhere instead of writing raw queries
 export const stmts = {
 	getUserByUsername: db.query<
@@ -114,6 +124,19 @@ export const stmts = {
      ORDER BY f.uploaded_at DESC`,
 	),
 	deleteFile: db.query<void, [string]>("DELETE FROM files WHERE id = ?"),
+	getTodosByUser: db.query<
+		{ id: string; task: string; done: number },
+		[number]
+	>(
+		"SELECT id, task, done FROM todos WHERE user_id = ? ORDER BY created_at DESC",
+	),
+	createTodo: db.query<void, [string, number, string]>(
+		"INSERT INTO todos (id, user_id, task) VALUES (?, ?, ?)",
+	),
+	toggleTodo: db.query<void, [number, string]>(
+		"UPDATE todos SET done = ? WHERE id = ?",
+	),
+	deleteTodo: db.query<void, [string]>("DELETE FROM todos WHERE id = ?"),
 };
 
 // Seed a default admin user on first start (password: "changeme")

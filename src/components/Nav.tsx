@@ -8,7 +8,9 @@ type NavProps = {
 const Nav: FC<NavProps> = ({ current, isAdmin }) => {
 	const links = [
 		{ href: "/", label: "Home" },
+		{ href: "/chat", label: "Chat" },
 		{ href: "/files", label: "Dateien" },
+		{ href: "/llm", label: "LLM" },
 		{ href: "/profile", label: "Profil" },
 	];
 

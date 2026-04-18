@@ -7,13 +7,23 @@ import { secureHeaders } from "hono/secure-headers";
 
 import { adminMiddleware, authMiddleware } from "./middleware/auth";
 import admin from "./routes/admin";
+import chat, { chatStream } from "./routes/chat";
 import files from "./routes/files";
 import home from "./routes/home";
+import llm, { llmStream } from "./routes/llm";
 import login from "./routes/login";
 import logout from "./routes/logout";
 import profile from "./routes/profile";
 
 const app = new Hono();
+
+// SSE stream must be mounted before compress/etag (they buffer the response)
+app.use("/chat/:id/stream", authMiddleware);
+app.route("/", chatStream);
+
+// LLM streaming endpoint (also before compress/etag)
+app.use("/llm/stream", authMiddleware);
+app.route("/", llmStream);
 
 // Global middlewares — order matters
 app.use(compress());
@@ -53,6 +63,8 @@ app.use("/*", authMiddleware);
 app.route("/", home);
 app.route("/", profile);
 app.route("/", files);
+app.route("/", chat);
+app.route("/", llm);
 
 // Admin-only routes
 app.use("/admin/*", adminMiddleware);
